@@ -3,7 +3,6 @@ import { ResponseLogin, User } from "../../domain/entities/user";
 import { IUsuarioRepository } from "../../domain/repositories/userRepository";
 import { compare, encrypt } from '../../../helpers/ashs';
 import { tokenSigIn } from "../../../helpers/token";
-import { isEmailRegistered } from "../validation/usermysql";
 import deleteFromFirebase from "../../../helpers/deleteImage";
 
 export class MysqlUserRepository implements IUsuarioRepository {
@@ -13,8 +12,6 @@ export class MysqlUserRepository implements IUsuarioRepository {
       
         try {
             // const hashPassword = await encrypt(password)
-            
-            await isEmailRegistered(email)
            
             let sql = "INSERT INTO users(uuid, name, email, phone_number , password ) VALUES (?, ?, ?, ?, ?)";
             const params: any[] = [uuid, name, email, phone_number, password];
